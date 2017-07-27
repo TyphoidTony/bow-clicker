@@ -1,60 +1,103 @@
 #include "display.h"
 #include <avr/io.h>
+#include <stdio.h>
+#include <string.h>
 #include <util/delay.h>
 //#include <string.h>
-#define _BV(bit) (1 << (bit))
+#define BV(bit) (1 << (bit)) 
+#define PORToff(PORT) (PORT = 0x00)
+#define PORTon(PORT) (PORT = 0xff)
 
 
-void hex_display(int hex,int digit){
-  _delay_ms(1);
-  PORTC = ~_BV(digit);
+void display_hex(int hex,int digit){
+  _delay_ms(5);
+  PORTC = ~BV(digit);
   PORTD = hex;
 }
 
 
-int hex_num_val(int num){
+
+int num_to_hex(uint16_t num){
+
 
   switch (num) {
 
   case 0:
-    return 0x3F;
-    
+    return 0x3f;
+    break;
+
   case 1:
-    return 0x06;
+    return  0x06;
+    break;
 
   case 2:
-    return 0x5B;
+     return 0x5B;
+     break;
 
   case 3:
-    return 0x4F;
+     return  0x4F;
+     break;
 
   case 4:
-    return 0x66;
+     return 0x66;
+     break;
 
   case 5:
-    return 0x6D;
+     return 0x6D;
+     break;
 
   case 6:
-    return 0x7D;
+     return 0x7D;
+     break;
 
   case 7:
-    return 0x07;
+     return 0x07;
+     break;
 
   case 8:
-    return 0x7F;
+     return 0x7F;
+     break;
 
   case 9:
-    return 0x6F;
+     return 0x6F;
+     break;
 
-  default: //will return nothing if no number is given. 
-    break;
-    
- 
- 
+  default: 
+
+     return 0x00;
+
  
   }
-    }
+}
 
+unsigned int count(unsigned int i){
+  unsigned int counted =1;
+  while (i/=10) {
+    counted++;
+  }
+  return counted;
+}
+
+
+void print_num(uint16_t num ){
+
+  volatile  int display[4];
+  unsigned digit = count(num);
+
+  while (digit--) {
+
+    display[digit]= num%10;
+    num/=10;
+
+  }
+
+  int i;
+  for ( i=0; i<4; ++i) {
+    display_hex(num_to_hex(display[i]), i);
+    
+    
+  }
+}
 
 
 int hex_char(char in){
@@ -152,9 +195,9 @@ int hex_char(char in){
 void _print(char* str){
 
   int len = strlen(str);
-
-  for (int i=0; i<= len; i++) {
-    hex_display(hex_char(str[i]),i);
+  int i;
+  for (i=0; i<len; i++) {
+    display_hex(hex_char(str[i]),i);
   }
 }
  
@@ -163,9 +206,9 @@ void err_msg(){
 }
 
 void demo(){
-
-  for (int i = 0; i <=3 ; i++) {
-    hex_display(hex_char(i+1),i);
+  int i;
+  for ( i = 1; i <=3 ; i++) {
+    display_hex(hex_char(i+1),i);
     _delay_ms(1000);
   }
 }

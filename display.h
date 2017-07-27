@@ -1,13 +1,21 @@
 #ifndef DISPLAY_H
+#include <avr/io.h>
 #define DISPLAY_H
 
 /* displays the hexadecimal value on 7 segement display
    @param hex value for character or number, digit on a multi-digit display to show the character on,*/
-void hex_display(int hex, int digit);
+void display_hex(int hex, int digit);
 
 /*Pretty much the same as hex_char but this returns an number 
   instead of a char/string  */
-int hex_num_val(int num);
+int num_to_hex(uint16_t num);
+
+unsigned int count(unsigned int);
+
+
+
+/* prints only numbers to the 7 segement display */
+void print_num(uint16_t num);
 
 /* Simple list of most if not all of the possible character and
    number combinations for a 7segment display */
@@ -21,7 +29,7 @@ void _print(char* str);
 /* prints out 'Err1' onto 4 digit display */
 void err_msg();
 
-/*displays a siple demo on the displays lighting up each digit with its number
+/*displays a simple demo on the displays lighting up each digit with its number
   starting from 1-4 */
 void demo();
 
