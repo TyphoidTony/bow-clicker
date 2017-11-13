@@ -11,9 +11,9 @@ A capacitive switch which will be fired off when an arrow brushes by it. without
 
 # TODOs
 
-   TODO: find out how to delete eeprom DONE 
-   TODO: add capacitor switch circuit 
-   FIXME: 4th digit on display does not turn off DONE 
-   TODO: get capacitance button working probably needs to implement PCI (pin change interrupt) DONE
-   TODO: add 3rd button resetting state of the display back to 0
-   TODO: rewire project to expose INT0 and INT1 for increase and decrease DONE
+- TODO: find out how to delete eeprom DONE 
+- TODO: add capacitor switch circuit 
+- FIXME: 4th digit on display does not turn off DONE 
+- TODO: get capacitance button working probably needs to implement PCI (pin change interrupt) DONE
+- TODO: add 3rd button resetting state of the display back to 0
+- TODO: rewire project to expose INT0 and INT1 for increase and decrease DONE
