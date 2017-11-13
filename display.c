@@ -3,16 +3,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <util/delay.h>
-//#include <string.h>
-#define BV(bit) (1 << (bit)) 
-#define PORToff(PORT) (PORT = 0x00)
-#define PORTon(PORT) (PORT = 0xff)
+//#define DIGIT_PORT  PORTC
+//#define SEGMENT_PORT PORTB
+//#define BUTTON_INC PD2
+//#define BUTTON_DEC PC5
+//#define BUTTON_PIN PINC
 
 
 void display_hex(int hex,int digit){
-  _delay_ms(5);
-  PORTC = ~BV(digit);
-  PORTD = hex;
+
+  _delay_ms(1);
+  DIGIT_PORT = ~_BV(digit);
+  SEGMENT_PORT = hex;
 }
 
 
@@ -81,7 +83,7 @@ unsigned int count(unsigned int i){
 
 void print_num(uint16_t num ){
 
-  volatile  int display[4];
+  volatile  int display[]={0,0,0,0};
   unsigned digit = count(num);
 
   while (digit--) {
@@ -90,9 +92,9 @@ void print_num(uint16_t num ){
     num/=10;
 
   }
-
+  /* NOTE undefined behavior currently useful for toggling 4th pin on display*/
   int i;
-  for ( i=0; i<4; ++i) {
+  for ( i=0; i<=4; ++i) {	
     display_hex(num_to_hex(display[i]), i);
     
     

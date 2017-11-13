@@ -5,7 +5,7 @@
   ))
 
 (
- (nil . ((company-clang-arguments . ("-I/home/anthony/WorkSpace/Projects/bow_clicker/"
+ (nil . ((company-clang-arguments . ("-I/home/anthony/SpiderOak Hive/workSpace/projects/bow_clicker/"
  				   ))))
  )
 

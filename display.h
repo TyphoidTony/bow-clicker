@@ -1,6 +1,19 @@
 #ifndef DISPLAY_H
 #include <avr/io.h>
 #define DISPLAY_H
+/**
+   These should be the things controlling what ports are being used for which parts of the display.
+   @NOTE This will make 'portability' easier and make this more like a real library.
+   
+   Each segement and digit should be set in order e.g. segment A should be PC0 if you're using PORTC
+**/
+
+#define DIGIT_PORT  PORTC
+#define SEGMENT_PORT PORTB
+#define BUTTON_INC PD2
+#define BUTTON_DEC PD3
+#define BUTTON_PIN PIND
+
 
 /* displays the hexadecimal value on 7 segement display
    @param hex value for character or number, digit on a multi-digit display to show the character on,*/
@@ -23,7 +36,7 @@ int hex_char(char in);
 
 /* Simple convenience function to print out a leeter to each digit of the
    display it assumes you're starting at zero on the displays
-@param str including numbers need to be passed as strings as well*/
+   @param str including numbers need to be passed as strings as well*/
 void _print(char* str);
 
 /* prints out 'Err1' onto 4 digit display */
@@ -35,6 +48,6 @@ void demo();
 
 
 /*Plan to maket his function scroll along the display if
-the string is greater than 4 characters */ 
+  the string is greater than 4 characters */ 
 void scrolling_Print();
 #endif
